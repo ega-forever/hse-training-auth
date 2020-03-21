@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import config from './config';
 import * as mongoose from 'mongoose';
 import * as bunyan from 'bunyan';
+import responses from './constants/responses';
 
 const logger = bunyan.createLogger({ name: 'notifications', level: config.logger.level });
 
@@ -18,6 +19,10 @@ const init = async () => {
   app.use(bodyParser.json());
 
   app.use('/', Routes());
+
+  app.get('/', (req, res) => {
+    res.send({ status: responses.generic.success });
+  });
 
   app.listen(config.rest.port, () => {
     logger.info(`started at ${ config.rest.port }`);

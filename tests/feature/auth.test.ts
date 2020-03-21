@@ -5,17 +5,37 @@ import responses from '../../src/constants/responses';
 
 describe('auth test', (ctx = {}) => {
 
+  before(async () => {
+
+    const awaitUntilUp = async () => {
+
+      let status = true;
+
+      await rp({
+        uri: `http://localhost:${ config.rest.port }`
+      })
+        .catch(() => status = false);
+
+      if (!status) {
+        console.log('awaiting until up');
+        await new Promise(res => setTimeout(res, 2000));
+        return await awaitUntilUp();
+      }
+    };
+
+    await awaitUntilUp();
+  });
 
   it('should register new user', async () => {
 
     ctx.user = {
-      username: `test${Date.now()}`,
+      username: `test${ Date.now() }`,
       password: 'test',
       email: 'test@test.com'
     };
 
     const reply = await rp({
-      uri: `http://localhost:${config.rest.port}/signup`,
+      uri: `http://localhost:${ config.rest.port }/signup`,
       method: 'POST',
       json: ctx.user
     });
@@ -27,7 +47,7 @@ describe('auth test', (ctx = {}) => {
   it('should login', async () => {
 
     const reply = await rp({
-      uri: `http://localhost:${config.rest.port}/signin`,
+      uri: `http://localhost:${ config.rest.port }/signin`,
       method: 'POST',
       json: {
         username: ctx.user.username,
@@ -46,7 +66,7 @@ describe('auth test', (ctx = {}) => {
   it('should validate', async () => {
 
     const reply = await rp({
-      uri: `http://localhost:${config.rest.port}/validate`,
+      uri: `http://localhost:${ config.rest.port }/validate`,
       method: 'POST',
       json: {
         token: ctx.user.tokens.access
