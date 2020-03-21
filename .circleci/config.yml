@@ -1,9 +1,9 @@
-version: 2
+version: 2.1
 jobs:
   test-app:
     docker:
-      - image: circleci/mongo:latest
       - image: circleci/node:11.3
+      - image: circleci/mongo:latest
     steps:
       - checkout
       - run: npm install
