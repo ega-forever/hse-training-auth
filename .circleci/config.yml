@@ -9,11 +9,9 @@ jobs:
       - image: circleci/mongo:latest
     steps:
       - checkout
-      - test:
-          steps:
-            - run: npm install
-            - run: npm start &
-            - run: npm test
+      - run: npm install
+      - run: npm start &
+      - run: npm test
 workflows:
   test-app:
     jobs:
