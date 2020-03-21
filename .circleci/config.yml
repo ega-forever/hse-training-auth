@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-  mongo: circleci/mongo:4.2.3
+  mongo: circleci/mongo:latest
 jobs:
   test-app:
     executor:
