@@ -1,0 +1,19 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+  mongo: circleci/mongo@4.2.3
+jobs:
+  test-app:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - test:
+          steps:
+            - run: npm install
+            - run: npm start &
+            - run: npm test
+workflows:
+  test-app:
+    jobs:
+      - test-app
