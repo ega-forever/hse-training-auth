@@ -1,11 +1,12 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-  mongo: circleci/mongo:latest
 jobs:
   test-app:
     executor:
       name: node/default
+    docker:
+      - image: circleci/mongo:latest
     steps:
       - checkout
       - test:
