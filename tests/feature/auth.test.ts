@@ -2,10 +2,16 @@ import * as assert from 'assert';
 import * as rp from 'request-promise'
 import config from '../../src/config';
 import responses from '../../src/constants/responses';
+import { fork } from "child_process";
+import * as path from "path";
 
 describe('auth test', (ctx = {}) => {
 
   before(async () => {
+
+    ctx.server = fork(path.join(__dirname, '../../src/index.ts'), [], {
+      execArgv: [path.join(__dirname, '../../', 'node_modules/ts-node/dist/bin.js')]
+    });
 
     const awaitUntilUp = async () => {
 
@@ -75,5 +81,9 @@ describe('auth test', (ctx = {}) => {
 
     assert(reply.status === responses.generic.success);
   });
+
+  after(()=>{
+    process.kill(ctx.server.pid);
+  })
 
 });
