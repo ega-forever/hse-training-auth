@@ -29,7 +29,7 @@
       "@types/mongoose": "^5.7.1",
       "@types/node": "^13.7.0",
       "chai": "^4.2.0",
-      "mocha": "^7.1.1",
+      "mocha": "^10.2.0",
       "request": "^2.88.2",
       "request-promise": "^4.2.5",
       "ts-node": "7.0.1",
